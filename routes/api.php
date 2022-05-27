@@ -1,9 +1,8 @@
 <?php
 
+use App\Http\Controllers\Api\AuthenticationController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
-use App\Http\Controllers\ManiobraController;
-use App\Http\Controllers\ListaAsistenciaController;
 /*
 |--------------------------------------------------------------------------
 | API Routes
@@ -15,10 +14,10 @@ use App\Http\Controllers\ListaAsistenciaController;
 |
 */
 
-Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
-    return $request->user();
+
+Route::post('login', [AuthenticationController::class, 'store']);
+
+Route::middleware('auth:sanctum')->group( function (){
+    Route::post('logout', [AuthenticationController::class, 'destroy']);
+    Route::get('check-token', [AuthenticationController::class, 'checkToken']);
 });
-
-Route::get('/maniobras/{id}/montos',[ManiobraController::class, 'byTurno'])->name('maniobras.montos');
-
-Route::get('/lista_asistencia/{FechaInicio}/{FechaFinal}/reportes',[ListaAsistenciaController::class, 'consultaReportes'])->name('lista_asistencias.reportes');
