@@ -25,9 +25,12 @@ class User extends Authenticatable
      */
     protected $fillable = [
         'name',
+        'ap_paterno',
+        'ap_materno',
         'email',
         'password',
-        'rol_id'
+        'rol_id',
+        'docs_completed',
     ];
 
     /**
@@ -49,6 +52,7 @@ class User extends Authenticatable
      */
     protected $casts = [
         'email_verified_at' => 'datetime',
+        'docs_completed' => 'boolean',
     ];
 
     /**
